@@ -3314,3 +3314,10 @@ input, select, textarea {
 			}
 
 	}
+
+
+
+.links-container {
+	display: flex;
+	justify-content: space-around;
+}
