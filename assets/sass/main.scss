@@ -912,6 +912,22 @@
 				top: 0;
 				width: 2.5em;
 			}
+
+			&:has(svg) {
+				padding: 0;
+				text-align: center;
+
+				&:before {
+					display: none;
+				}
+
+				svg {
+					display: block;
+					height: 5em;
+					margin: 0 auto;
+					width: 5em;
+				}
+			}
 		}
 	}
 
