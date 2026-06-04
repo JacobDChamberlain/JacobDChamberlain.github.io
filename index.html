@@ -12,8 +12,24 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="icon" href="favicon.svg" type="image/svg+xml" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+	<style>
+		#splash {
+			position: fixed;
+			inset: 0;
+			background: #000;
+			z-index: 9999;
+			pointer-events: none;
+			animation: splash-exit 0.8s ease-in 0.8s forwards;
+		}
+		@keyframes splash-exit {
+			to { opacity: 0; }
+		}
+	</style>
 	</head>
 	<body class="is-preload">
+
+		<!-- Splash Screen -->
+		<div id="splash" aria-hidden="true"></div>
 
 		<!-- Header -->
 			<section id="header">
@@ -482,6 +498,34 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+		<script>
+			(function() {
+				var splash = document.getElementById('splash');
+				var h2 = document.querySelector('#one header.major h2');
+				if (h2) {
+					var rect = h2.getBoundingClientRect();
+					var cs = getComputedStyle(h2);
+					var label = document.createElement('span');
+					label.textContent = h2.textContent;
+					label.style.cssText =
+						'position:fixed;' +
+						'left:'          + rect.left   + 'px;' +
+						'top:'           + rect.top    + 'px;' +
+						'width:'         + rect.width  + 'px;' +
+						'font-size:'     + cs.fontSize     + ';' +
+						'font-weight:'   + cs.fontWeight   + ';' +
+						'font-family:'   + cs.fontFamily   + ';' +
+						'color:'         + cs.color        + ';' +
+						'line-height:'   + cs.lineHeight   + ';' +
+						'letter-spacing:'+ cs.letterSpacing+ ';' +
+						'margin:0;padding:0;';
+					splash.appendChild(label);
+				}
+				splash.addEventListener('animationend', function(e) {
+					if (e.animationName === 'splash-exit') splash.remove();
+				});
+			})();
+		</script>
 
 	</body>
 </html>
